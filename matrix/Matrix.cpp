@@ -15,37 +15,37 @@ Matrix::Matrix(unsigned long n_rows, unsigned long n_cols) : rows(n_rows), cols(
 Matrix::Matrix(const Matrix& mat) : rows(mat.rows), cols(mat.cols)
 {
     Matrix::allocate();
-    for (auto&& i = 0; i < rows; i++)
-        for (auto&& j = 0; j < cols; j++)
+    for (unsigned long i = 0; i < rows; i++)
+        for (unsigned long j = 0; j < cols; j++)
             m[i][j] = mat.m[i][j];
 }
 
 Matrix::~Matrix()
 {
-    for(auto&& i = 0; i < this->rows; i++)
-        delete[] this->m[i];
-    delete[] this->m;
+    for(unsigned long i = 0; i < rows; i++)
+        delete[] m[i];
+    delete[] m;
 }
 
 void Matrix::zeros()
 {
-    for (auto&& i = 0; i < rows; i++)
-        for (auto&& j = 0; j < cols; j++)
+    for (unsigned long i = 0; i < rows; i++)
+        for (unsigned long j = 0; j < cols; j++)
             m[i][j] = 0;
 }
 
 void Matrix::allocate()
 {
     m = new unsigned long*[rows];
-    for (auto&& i = 0; i < rows; i++)
+    for (unsigned long i = 0; i < rows; i++)
         m[i] = new unsigned long[cols];
 }
 
 void Matrix::re_allocate()
 {
-    this->m = new unsigned long*[this->rows];
-    for (auto&& i = 0; i < this->rows; i++)
-        this->m[i] = new unsigned long[this->cols];
+    m = new unsigned long*[rows];
+    for (unsigned long i = 0; i < rows; i++)
+        m[i] = new unsigned long[cols];
 }
 
 void Matrix::read_sizes()
@@ -53,10 +53,10 @@ void Matrix::read_sizes()
     std::cout << "please enter matrix size: [rows][cols]" << std::endl;
     try
     {
-        std::cin >> this->rows;
-        std::cin >> this->cols;
+        std::cin >> rows;
+        std::cin >> cols;
 
-        if (this->rows <= 0 || this->cols <= 0)
+        if (rows <= 0 || cols <= 0)
             throw std::exception();
     }
     catch (const std::exception& e)
@@ -68,12 +68,12 @@ void Matrix::read_sizes()
 
 void Matrix::read_sizes(unsigned long n_rows, unsigned long n_cols)
 {
-    this->rows = n_rows;
-    this->cols = n_cols;
+    rows = n_rows;
+    cols = n_cols;
 
     try
     {
-        if (this->rows <= 0 || this->cols <= 0)
+        if (rows <= 0 || cols <= 0)
             throw std::exception();
     }
     catch (const std::exception& e)
@@ -121,21 +121,20 @@ void Matrix::random_values()
 
 unsigned long Matrix::get_rows()
 {
-    return this->rows;
+    return rows;
 }
 
 unsigned long Matrix::get_cols()
 {
-    return this->cols;
+    return cols;
 }
 
 unsigned long **Matrix::get_mat()
 {
-    return this->m;
+    return m;
 }
 
 void Matrix::set_elem_by_index(unsigned long n_i, unsigned long n_j, unsigned long n_value)
 {
-    this->m[n_i][n_j] = n_value;
+    m[n_i][n_j] = n_value;
 }
-

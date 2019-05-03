@@ -7,8 +7,6 @@
 #include <cstdlib>
 #include <ctime>
 #include <stdexcept>
-#include <thread>
-#include <chrono>
 
 class Matrix {
 
@@ -23,18 +21,18 @@ public:
     unsigned long** get_mat();
     void set_elem_by_index(unsigned long n_i, unsigned long n_j, unsigned long n_value);
 
-    void print(std::string matrix);
+    void zeros();
     void read_full();
     void read_sizes();
-    void read_sizes(unsigned long n_rows, unsigned long n_cols);
     void read_values();
     void random_values();
+    void print(std::string matrix);
+    void read_sizes(unsigned long n_rows, unsigned long n_cols);
 
 private:
     unsigned long rows;
     unsigned long cols;
     unsigned long** m;
-    void zeros();
     void allocate();
     void re_allocate();
 };

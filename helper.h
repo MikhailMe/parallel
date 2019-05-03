@@ -3,28 +3,38 @@
 #ifndef PARALLEL_HELPER_H
 #define PARALLEL_HELPER_H
 
+#include <chrono>
+#include <process.h>
 #include "matrix/Matrix.h"
 
-Matrix single_thread_multiplication(Matrix &fm, Matrix &sm)
+#define THREAD_COUNT 4
+
+typedef struct
 {
-    if (fm.get_cols()!= sm.get_rows())
-        throw std::exception();
+    unsigned long from_line;
+    unsigned long to_line;
+} Data;
 
-    Matrix result(fm.get_rows(), sm.get_cols());
+int counter = 0;
+static Matrix mat1, mat2, res;
 
-    for(unsigned long i = 0; i < fm.get_rows(); i++)
+void multi_thread_multiplication(void *n_data)
+{
+    Data *data = (Data*) n_data;
+
+    for (unsigned long i = data->from_line; i < data->to_line; i++)
     {
-        for (unsigned long j = 0; j < sm.get_cols(); j++)
+        for (unsigned long j = 0; j < mat2.get_cols(); j++)
         {
             unsigned long temp = 0;
-            for (auto&& k = 0; k < fm.get_cols(); k++)
+            for (unsigned long k = 0; k < mat1.get_cols(); k++)
             {
-                 temp += fm.get_mat()[i][k] * sm.get_mat()[k][j];
+                temp += mat1.get_mat()[i][k] * mat2.get_mat()[k][j];
             }
-            result.set_elem_by_index(i, j, temp);
+            res.set_elem_by_index(i, j, temp);
         }
     }
-    return result;
+    counter++;
 }
 
 #endif //PARALLEL_HELPER_H
