@@ -19,7 +19,7 @@ Matrix single_thread_multiplication(Matrix &fm, Matrix &sm)
             unsigned long temp = 0;
             for (auto&& k = 0; k < fm.get_cols(); k++)
             {
-                 temp += fm.get_mat()[i][k] * sm.get_mat()[k][j];
+                temp += fm.get_mat()[i][k] * sm.get_mat()[k][j];
             }
             result.set_elem_by_index(i, j, temp);
         }
