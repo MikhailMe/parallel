@@ -3,11 +3,7 @@
 
 int main()
 {
-    Matrix mat1, mat2;
-
-    mat1.read_sizes(500, 500);
-    mat2.read_sizes(500, 500);
-
+    Matrix mat1(N, M), mat2(M, K);
     mat1.random_values();
     mat2.random_values();
 
@@ -22,6 +18,5 @@ int main()
     {
         std::cout << "Illegal matrices sizes" << std::endl;
     }
-
     return 0;
 }

@@ -5,6 +5,10 @@
 
 #include "matrix/Matrix.h"
 
+#define N 1000
+#define M 600
+#define K 700
+
 Matrix single_thread_multiplication(Matrix &fm, Matrix &sm)
 {
     if (fm.get_cols()!= sm.get_rows())
