@@ -3,12 +3,9 @@
 
 int main()
 {
-    mat1.read_sizes(500, 500);
-    mat2.read_sizes(500, 500);
+    Matrix mat1(N, M), mat2(M, K), res(N, K);
 
-    res.read_sizes(mat1.get_cols(), mat2.get_rows());
     res.zeros();
-
     mat1.random_values();
     mat2.random_values();
 
@@ -24,14 +21,17 @@ int main()
         to_line = from_line + q + (i < r ? 1 : 0);
         data[i].to_line = to_line;
         from_line = to_line;
+        data[i].mat1 = mat1.get_mat();
+        data[i].mat2 = mat2.get_mat();
+        data[i].res = res.get_mat();
+        data[i].mat1_cols = mat1.get_cols();
+        data[i].mat2_cols = mat2.get_cols();
     }
 
     auto&& start = std::chrono::steady_clock::now();
 
     for (int i = 0; i < THREAD_COUNT - 1; i++)
-    {
         _beginthread(multi_thread_multiplication, 0, (void*)&data[i]);
-    }
 
     multi_thread_multiplication((void*)&data[THREAD_COUNT - 1]);
 

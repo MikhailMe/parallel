@@ -7,33 +7,31 @@
 #include <process.h>
 #include "matrix/Matrix.h"
 
+#define N 1000
+#define M 600
+#define K 700
 #define THREAD_COUNT 4
 
 typedef struct
 {
-    unsigned long from_line;
+    unsigned long **res;
+    unsigned long **mat1;
+    unsigned long **mat2;
     unsigned long to_line;
+    unsigned long from_line;
+    unsigned long mat1_cols;
+    unsigned long mat2_cols;
 } Data;
 
 int counter = 0;
-static Matrix mat1, mat2, res;
 
 void multi_thread_multiplication(void *n_data)
 {
     Data *data = (Data*) n_data;
-
     for (unsigned long i = data->from_line; i < data->to_line; i++)
-    {
-        for (unsigned long j = 0; j < mat2.get_cols(); j++)
-        {
-            unsigned long temp = 0;
-            for (unsigned long k = 0; k < mat1.get_cols(); k++)
-            {
-                temp += mat1.get_mat()[i][k] * mat2.get_mat()[k][j];
-            }
-            res.set_elem_by_index(i, j, temp);
-        }
-    }
+        for (unsigned long j = 0; j < data->mat2_cols; j++)
+            for (unsigned long k = 0; k < data->mat1_cols; k++)
+                data->res[i][j] += data->mat1[i][k] * data->mat2[k][j];
     counter++;
 }
 
