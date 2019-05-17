@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <stdexcept>
+#include <string>
 
 class Matrix {
 

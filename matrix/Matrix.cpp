@@ -87,8 +87,8 @@ void Matrix::read_values()
 {
     std::cout << "please enter matrix[" << rows << "][" << cols << "]" << std::endl;
     std::cout << "your enter will line by line" << std::endl;
-    for (auto&& i = 0; i < rows; i++)
-        for (auto&& j = 0; j < cols; j++)
+    for (unsigned long i = 0; i < rows; i++)
+        for (unsigned long j = 0; j < cols; j++)
             std::cin >> m[i][j];
 }
 
@@ -102,9 +102,9 @@ void Matrix::read_full()
 void Matrix::print(std::string matrix)
 {
     std::cout << "Matrix " << matrix << ":" << std::endl;
-    for (auto&& i = 0; i < rows; i++)
+    for (unsigned long i = 0; i < rows; i++)
     {
-        for (auto&& j = 0; j < cols; j++)
+        for (unsigned long j = 0; j < cols; j++)
             std::cout << m[i][j] << " ";
         std::cout << std::endl;
     }
@@ -114,8 +114,8 @@ void Matrix::print(std::string matrix)
 void Matrix::random_values()
 {
     srand(static_cast<unsigned int>(time(nullptr)));
-    for (auto&& i = 0; i < rows; i++)
-        for (auto&& j = 0; j < cols; j++)
+    for (unsigned long i = 0; i < rows; i++)
+        for (unsigned long j = 0; j < cols; j++)
             m[i][j] = static_cast<unsigned long>(rand() % 100);
 }
 

@@ -3,14 +3,11 @@
 #ifndef PARALLEL_HELPER_H
 #define PARALLEL_HELPER_H
 
-#include <chrono>
-#include <process.h>
-#include "matrix/Matrix.h"
+#include <mpi.h>
 
-#define N 1000
-#define M 600
-#define K 700
-#define THREAD_COUNT 4
+#include "matrix/matrix.h"
+
+
 
 typedef struct
 {
@@ -25,14 +22,6 @@ typedef struct
 
 int counter = 0;
 
-void multi_thread_multiplication(void *n_data)
-{
-    Data *data = (Data*) n_data;
-    for (unsigned long i = data->from_line; i < data->to_line; i++)
-        for (unsigned long j = 0; j < data->mat2_cols; j++)
-            for (unsigned long k = 0; k < data->mat1_cols; k++)
-                data->res[i][j] += data->mat1[i][k] * data->mat2[k][j];
-    counter++;
-}
+
 
 #endif //PARALLEL_HELPER_H
