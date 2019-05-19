@@ -1,6 +1,11 @@
 #include "matrix/Matrix.h"
 #include "helper.h"
 
+#define N 1000
+#define M 500
+#define K 1200
+#define THREAD_COUNT 4
+
 int main()
 {
     Matrix mat1(N, M), mat2(M, K), res(N, K);
